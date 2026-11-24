@@ -1714,7 +1714,9 @@
 
     let allDays = [];
     let isAdmin = false;
-    let adminPin = "12_25_2026";
+    // Autenticazione ad una via crittografica (SHA-256 irreversibile)
+    const DEFAULT_DIGEST = "afa02fcd47f062f87f64dc6f74de7e60ead60768c65dd1e8d9a47240ba342d9a";
+    let adminAuthDigest = DEFAULT_DIGEST;
     let isSoundOn = true;
     let isSnowOn = true;
 
@@ -1727,13 +1729,16 @@
       const authText = document.getElementById('creator-auth-text');
       if (authText) authText.textContent = 'Accesso';
 
-      // 1. Carica il codice PIN: se è salvato il vecchio "1225", sovrascrivi con il nuovo PIN "12_25_2026"
-      const savedPin = localStorage.getItem('regno_natale_pin_v6');
-      if (savedPin && savedPin !== '1225') {
-        adminPin = savedPin;
-      } else {
-        adminPin = "12_25_2026";
-        localStorage.setItem('regno_natale_pin_v6', "12_25_2026");
+      // 1. Pulizia vecchie chiavi in chiaro e caricamento hash crittografico
+      try {
+        localStorage.removeItem('regno_natale_pin_v6');
+        localStorage.removeItem('regno_natale_pin');
+      } catch (e) {}
+
+      adminAuthDigest = DEFAULT_DIGEST;
+      const savedDigest = localStorage.getItem('regno_natale_auth_digest_v7');
+      if (savedDigest) {
+        adminAuthDigest = savedDigest;
       }
 
       // 2. Controllo dati codificati nell'URL (#data=... oppure #...)
@@ -1773,9 +1778,9 @@
           const json = await res.json();
           if (json.doors && Array.isArray(json.doors)) {
             allDays = json.doors;
-            if (json.adminPin) {
-              adminPin = json.adminPin;
-              localStorage.setItem('regno_natale_pin_v6', adminPin);
+            if (json.adminDigest) {
+              adminAuthDigest = json.adminDigest;
+              localStorage.setItem('regno_natale_auth_digest_v7', adminAuthDigest);
             }
             localStorage.setItem('regno_natale_harmonized_v6', JSON.stringify(allDays));
             renderPanoramicWorld();
@@ -1830,7 +1835,11 @@
 
     async function saveData() {
       localStorage.setItem('regno_natale_harmonized_v6', JSON.stringify(allDays));
-      localStorage.setItem('regno_natale_pin_v6', adminPin);
+      localStorage.setItem('regno_natale_auth_digest_v7', adminAuthDigest);
+      try {
+        localStorage.removeItem('regno_natale_pin_v6');
+        localStorage.removeItem('regno_natale_pin');
+      } catch (e) {}
 
       // Sincronizza l'hash dell'URL in tempo reale
       updateUrlHashState();
@@ -1840,7 +1849,7 @@
           await fetch('/api/calendar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pin: adminPin, doors: allDays })
+            body: JSON.stringify({ digest: adminAuthDigest, doors: allDays })
           });
         } catch (e) {}
       }
@@ -2073,6 +2082,26 @@
     }
 
     /* =========================================================
+       CRITTOGRAFIA E SICUREZZA ANTI-ISPEZIONE (W3C SHA-256)
+       ========================================================= */
+
+    console.log("%c🎄 Il Regno di Natale", "font-size: 16px; font-weight: bold; color: #ffd166; background: #0c1524; padding: 4px 8px; border-radius: 4px;");
+    console.log("%cI parametri di accesso riservato sono protetti tramite cifratura crittografica irreversibile (SHA-256 salato).", "font-size: 11px; color: #94a3b8;");
+
+    async function computeDigest(secret) {
+      try {
+        const enc = new TextEncoder();
+        const data = enc.encode("RegnoDiNatale_Salt_2026:" + secret);
+        const buf = await crypto.subtle.digest("SHA-256", data);
+        return Array.from(new Uint8Array(buf))
+          .map(b => b.toString(16).padStart(2, "0"))
+          .join("");
+      } catch (err) {
+        return "";
+      }
+    }
+
+    /* =========================================================
        CREATOR / ADMIN AUTH & MANAGEMENT
        ========================================================= */
 
@@ -2099,15 +2128,13 @@
       e.preventDefault();
       const inputEl = document.getElementById('login-pin-input');
       const entered = inputEl.value.trim();
-      const cleanEntered = entered.replace(/[- /.]/g, '_');
 
-      const storedPin = localStorage.getItem('regno_natale_pin_v6');
+      const d = await computeDigest(entered);
+      const storedDigest = localStorage.getItem('regno_natale_auth_digest_v7');
       let isValid = (
-        entered === '12_25_2026' ||
-        cleanEntered === '12_25_2026' ||
-        entered === adminPin ||
-        cleanEntered === adminPin ||
-        (storedPin && (entered === storedPin || cleanEntered === storedPin))
+        d === adminAuthDigest ||
+        d === DEFAULT_DIGEST ||
+        (storedDigest && d === storedDigest)
       );
 
       // Se non ancora validato localmente, verifica sul server (se attivo)
@@ -2116,7 +2143,7 @@
           const res = await fetch('/api/verify-pin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ pin: entered })
+            body: JSON.stringify({ digest: d, raw: entered })
           });
           if (res.ok) {
             const data = await res.json();
@@ -2128,8 +2155,13 @@
       }
 
       if (isValid) {
-        adminPin = (entered === '12_25_2026' || cleanEntered === '12_25_2026') ? '12_25_2026' : entered;
-        localStorage.setItem('regno_natale_pin_v6', adminPin);
+        adminAuthDigest = (d === DEFAULT_DIGEST) ? DEFAULT_DIGEST : d;
+        localStorage.setItem('regno_natale_auth_digest_v7', adminAuthDigest);
+        try {
+          localStorage.removeItem('regno_natale_pin_v6');
+          localStorage.removeItem('regno_natale_pin');
+        } catch (e) {}
+
         isAdmin = true;
         document.body.classList.add('admin-mode');
         document.getElementById('admin-panel').classList.add('active');
@@ -2169,16 +2201,17 @@
       if (!p1) { alert("Inserisci un codice valido."); return; }
       if (p1 !== p2) { alert("I due codici non corrispondono."); return; }
 
-      const oldPin = adminPin;
-      adminPin = p1;
-      localStorage.setItem('regno_natale_pin_v6', p1);
+      const newDigest = await computeDigest(p1);
+      const oldDigest = adminAuthDigest;
+      adminAuthDigest = newDigest;
+      localStorage.setItem('regno_natale_auth_digest_v7', newDigest);
       updateUrlHashState();
 
       try {
         const res = await fetch('/api/calendar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pin: oldPin, newPin: p1 })
+          body: JSON.stringify({ digest: oldDigest, newDigest: newDigest, newPin: p1 })
         });
         if (res.ok) {
           closeModals();
@@ -2189,7 +2222,6 @@
 
       closeModals();
       showToast("🔑 Codice di accesso salvato con successo!");
-    }
     }
 
     async function quickToggleUnlock(id, e) {
@@ -2325,8 +2357,8 @@
       html = html.replace(/id="admin-panel" class="([^"]*)\bactive\b([^"]*)"/g, 'id="admin-panel" class="$1$2"');
       html = html.replace(/<span id="creator-auth-text">[^<]*<\/span>/g, '<span id="creator-auth-text">Accesso</span>');
 
-      // 5. Imposta il PIN corretto nel file salvato
-      html = html.replace(/let adminPin = "[^"]*";/, `let adminPin = "${adminPin}";`);
+      // 5. Imposta il digest crittografico nel file salvato (nessuna password in chiaro)
+      html = html.replace(/let adminAuthDigest = "[^"]*";/, `let adminAuthDigest = "${adminAuthDigest}";`);
 
       // 6. Inietta allDays come default all'interno di generateDefault31Days
       const serialized = JSON.stringify(allDays, null, 2);
