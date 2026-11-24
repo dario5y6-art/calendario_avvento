@@ -806,7 +806,7 @@
     }
   </style>
 </head>
-<body class="">
+<body class="admin-mode">
 
   <canvas id="snow-canvas" width="1440" height="797"></canvas>
   <canvas id="confetti-canvas"></canvas>
@@ -842,7 +842,7 @@
         </button>
 
         <button class="btn btn-gold" id="btn-creator-auth">
-          🔑 <span id="creator-auth-text">Area Creatore</span>
+          🔑 <span id="creator-auth-text">Esci da Creatore</span>
         </button>
 
         <button class="btn btn-glass" id="btn-share-dialog">
@@ -855,7 +855,7 @@
     <div class="days-ribbon" id="days-ribbon"><span class="ribbon-tag ribbon-tag-nov">🕳️ Nov:</span><div class="ribbon-pill underground-pill unlocked" title="Giorno 24 Novembre (Sottosuolo)">24</div><div class="ribbon-pill underground-pill " title="Giorno 25 Novembre (Sottosuolo)">25</div><div class="ribbon-pill underground-pill " title="Giorno 26 Novembre (Sottosuolo)">26</div><div class="ribbon-pill underground-pill " title="Giorno 27 Novembre (Sottosuolo)">27</div><div class="ribbon-pill underground-pill " title="Giorno 28 Novembre (Sottosuolo)">28</div><div class="ribbon-pill underground-pill " title="Giorno 29 Novembre (Sottosuolo)">29</div><div class="ribbon-pill underground-pill " title="Giorno 30 Novembre (Sottosuolo)">30</div><span class="ribbon-tag ribbon-tag-dec">🏔️ Dic:</span><div class="ribbon-pill unlocked" title="Giorno 1 Dicembre (Villaggio)">1</div><div class="ribbon-pill " title="Giorno 2 Dicembre (Villaggio)">2</div><div class="ribbon-pill " title="Giorno 3 Dicembre (Villaggio)">3</div><div class="ribbon-pill " title="Giorno 4 Dicembre (Villaggio)">4</div><div class="ribbon-pill " title="Giorno 5 Dicembre (Villaggio)">5</div><div class="ribbon-pill " title="Giorno 6 Dicembre (Villaggio)">6</div><div class="ribbon-pill " title="Giorno 7 Dicembre (Villaggio)">7</div><div class="ribbon-pill " title="Giorno 8 Dicembre (Villaggio)">8</div><div class="ribbon-pill " title="Giorno 9 Dicembre (Villaggio)">9</div><div class="ribbon-pill " title="Giorno 10 Dicembre (Villaggio)">10</div><div class="ribbon-pill " title="Giorno 11 Dicembre (Villaggio)">11</div><div class="ribbon-pill " title="Giorno 12 Dicembre (Villaggio)">12</div><div class="ribbon-pill " title="Giorno 13 Dicembre (Villaggio)">13</div><div class="ribbon-pill " title="Giorno 14 Dicembre (Villaggio)">14</div><div class="ribbon-pill " title="Giorno 15 Dicembre (Villaggio)">15</div><div class="ribbon-pill " title="Giorno 16 Dicembre (Villaggio)">16</div><div class="ribbon-pill " title="Giorno 17 Dicembre (Villaggio)">17</div><div class="ribbon-pill " title="Giorno 18 Dicembre (Villaggio)">18</div><div class="ribbon-pill " title="Giorno 19 Dicembre (Villaggio)">19</div><div class="ribbon-pill " title="Giorno 20 Dicembre (Villaggio)">20</div><div class="ribbon-pill " title="Giorno 21 Dicembre (Villaggio)">21</div><div class="ribbon-pill " title="Giorno 22 Dicembre (Villaggio)">22</div><div class="ribbon-pill " title="Giorno 23 Dicembre (Villaggio)">23</div><div class="ribbon-pill " title="Giorno 24 Dicembre (Villaggio)">24</div></div>
 
     <!-- Creator Bar -->
-    <div class="admin-bar" id="admin-panel">
+    <div class="admin-bar active" id="admin-panel">
       <div style="display: flex; align-items: center; gap: 0.5rem;">
         <span style="font-weight: 800; color: var(--gold-primary); font-size: 0.9rem;">👑 Area Creatore:</span>
         <span style="font-size: 0.8rem; color: #cbd5e1;">Sblocca o blocca le casette da remoto sia nel Villaggio che nel Sottosuolo.</span>
@@ -2840,7 +2840,7 @@
   </div>
 
   <!-- SHARE & MULTI-DEVICE MODAL -->
-  <div class="modal-overlay active" id="share-modal">
+  <div class="modal-overlay" id="share-modal">
     <div class="modal-card" style="max-width: 580px;">
       <button class="modal-close-btn" onclick="closeModals()">✕</button>
 
@@ -2899,7 +2899,7 @@
   <!-- Toast -->
   <div id="toast" class="">
     <span id="toast-icon">✨</span>
-    <span id="toast-text">Sei tornato alla visualizzazione Destinatario.</span>
+    <span id="toast-text">🔑 Nuovo PIN salvato: 11</span>
   </div>
 
   <script>
