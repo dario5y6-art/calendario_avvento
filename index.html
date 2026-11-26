@@ -817,8 +817,8 @@
 </head>
 <body >
 
-  <canvas id="snow-canvas" width="1366" height="892"></canvas>
-  <canvas id="confetti-canvas" width="1366" height="892"></canvas>
+  <canvas id="snow-canvas" width="390" height="645"></canvas>
+  <canvas id="confetti-canvas" width="390" height="645"></canvas>
 
   <!-- Sticky Header -->
   <header>
@@ -1277,7 +1277,7 @@
               ✏️ Modifica
             </button>
           </div>
-        </div><div class="vault-spot-card locked" id="spot-nov-27" style="left: 34%; top: 2380px;">
+        </div><div class="vault-spot-card unlocked" id="spot-nov-27" style="left: 34%; top: 2380px;">
           <div class="spot-name-tooltip">Sottosuolo 27 Nov: Il Condotto delle Vecchie Lampadine</div>
 
           <div class="spot-graphic-wrap">
@@ -1300,7 +1300,7 @@
 
           <div class="admin-spot-tools">
             <button class="admin-mini-btn" onclick="quickToggleUnlock('nov-27', event)">
-              🔒
+              🔓
             </button>
             <button class="admin-mini-btn" onclick="openEditModal('nov-27', event)">
               ✏️ Modifica
@@ -1405,19 +1405,20 @@
 
       <div class="modal-badge-pill">
         <span id="s-badge-icon">⚙️</span>
-        <span id="s-badge-date">26 Novembre (Sottosuolo)</span>
+        <span id="s-badge-date">27 Novembre (Sottosuolo)</span>
       </div>
 
-      <h2 class="modal-title" id="s-title">La Caverna dei Regali Dimenticati</h2>
+      <h2 class="modal-title" id="s-title">Il Condotto delle Vecchie Lampadine</h2>
 
       <div class="modal-img-box" id="s-img-box" style="display: block;">
-        <img id="s-img" src="https://www.google.com/imgres?q=data%20image%20snoopy%20christmas&amp;imgurl=https%3A%2F%2Flookaside.instagram.com%2Fseo%2Fgoogle_widget%2Fcrawler%2F%3Fmedia_id%3D3491891387071354298&amp;imgrefurl=https%3A%2F%2Fwww.instagram.com%2Fp%2FDB1sLc4olW6%2F&amp;docid=Po9twM22fcriMM&amp;tbnid=JAaHu_epfwkqHM&amp;vet=12ahUKEwi7n-D9l6SYAxUM8LsIHYDBGmEQnPAOegQIfBAA..i&amp;w=1080&amp;h=1080&amp;hcb=2&amp;ved=2ahUKEwi7n-D9l6SYAxUM8LsIHYDBGmEQnPAOegQIfBAA" alt="Sorpresa">
+        <img id="s-img" src="https://static.vecteezy.com/ti/vettori-gratis/p1/17546191-uno-bacio-buono-romantico-biglietto-san-valentino-giorno-design-elemento-vettore-illustrazione-vettoriale.jpg" alt="Sorpresa">
       </div>
 
-      <div class="modal-message" id="s-message">Abbi pazienza, oggi non sarà il giorno in cui indovinerai… e neanche il giorno in cui riceverai un indizio. 
-Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa canzone &lt;3</div>
+      <div class="modal-message" id="s-message">Non ti è bastato l'indizio per capire che cosa sono?
+Mi dispiace, ma neanche oggi ti sarà dato una mano... goditi però questo premio giornaliero ❤️
+( Riscattabile in qualsiasi momento previo a dimostrazione al soggetto interessato )</div>
 
-      <div id="s-link-box" style="display: block;">
+      <div id="s-link-box" style="display: none;">
         <a href="https://open.spotify.com/track/5Wj1rJnCLpMHdLaxsFtJLs?si=JQPeCs88Q6edCd7u_ZmSeQ&amp;utm_source=copy-link" target="_blank" rel="noopener noreferrer" class="modal-link-btn" id="s-link-btn">
           ✨ <span id="s-link-label">Ascolta e pensami</span> ↗
         </a>
@@ -1431,9 +1432,9 @@ Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa ca
       <button class="modal-close-btn" onclick="closeModals()">✕</button>
 
       <div style="font-size: 3.5rem; margin-bottom: 0.5rem;" id="locked-icon">⚙️🔒</div>
-      <div class="modal-badge-pill" style="margin: 0 auto 0.75rem;" id="locked-badge">26 Nov - Chiusa</div>
+      <div class="modal-badge-pill" style="margin: 0 auto 0.75rem;" id="locked-badge">27 Nov - Chiusa</div>
 
-      <h2 class="modal-title" id="locked-title" style="font-size: 1.5rem;">La Caverna dei Regali Dimenticati</h2>
+      <h2 class="modal-title" id="locked-title" style="font-size: 1.5rem;">Il Condotto delle Vecchie Lampadine</h2>
 
       <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem;" id="locked-desc">Questa botola del sottosuolo è ancora sigillata.<br>Il creatore non l'ha ancora sbloccata!</p>
 
@@ -1452,10 +1453,10 @@ Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa ca
         <span>✏️ Modifica Casella</span>
       </div>
 
-      <h2 class="modal-title" id="edit-modal-title">Modifica La Caverna dei Regali Dimenticati</h2>
+      <h2 class="modal-title" id="edit-modal-title">Modifica Il Condotto delle Vecchie Lampadine</h2>
 
       <form onsubmit="saveDayEdit(event)">
-        <input type="hidden" id="edit-day-id" value="nov-26">
+        <input type="hidden" id="edit-day-id" value="nov-27">
 
         <div style="display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.25rem; background: rgba(255,255,255,0.06); padding: 0.8rem 1rem; border-radius: 12px;">
           <span style="font-size: 0.88rem; font-weight: 700; color: var(--gold-primary);">Stato Sblocco:</span>
@@ -1565,7 +1566,7 @@ Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa ca
   </div>
 
   <!-- SHARE & MULTI-DEVICE MODAL -->
-  <div class="modal-overlay" id="share-modal">
+  <div class="modal-overlay active" id="share-modal">
     <div class="modal-card" style="max-width: 580px;">
       <button class="modal-close-btn" onclick="closeModals()">✕</button>
 
@@ -1624,7 +1625,7 @@ Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa ca
   <!-- Toast -->
   <div id="toast" class="">
     <span id="toast-icon">✨</span>
-    <span id="toast-text">💾 Casella salvata con successo!</span>
+    <span id="toast-text">Sei tornato alla visualizzazione Destinatario.</span>
   </div>
 
   <script>
@@ -2014,10 +2015,10 @@ Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa ca
     "day": 27,
     "month": "Nov",
     "zone": "underground",
-    "unlocked": false,
+    "unlocked": true,
     "title": "Il Condotto delle Vecchie Lampadine",
-    "message": "Casella segreta del 27 Novembre nella discarica sotterranea!",
-    "img": "",
+    "message": "Non ti è bastato l'indizio per capire che cosa sono?\nMi dispiace, ma neanche oggi ti sarà dato una mano... goditi però questo premio giornaliero ❤️\n( Riscattabile in qualsiasi momento previo a dimostrazione al soggetto interessato )",
+    "img": "https://static.vecteezy.com/ti/vettori-gratis/p1/17546191-uno-bacio-buono-romantico-biglietto-san-valentino-giorno-design-elemento-vettore-illustrazione-vettoriale.jpg",
     "link": "",
     "linkLabel": ""
   },
@@ -2346,7 +2347,7 @@ Dovrò giocare molto cauto con te altrimenti la magia svanirà: goditi questa ca
     "linkLabel": ""
   }
 ];
-    let EMBEDDED_DATA_TIMESTAMP = 1795646424041;
+    let EMBEDDED_DATA_TIMESTAMP = 1795732818279;
     /* === EMBEDDED_CALENDAR_DATA_END === */
 
     function generateDefault31Days() {
