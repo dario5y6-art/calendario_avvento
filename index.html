@@ -818,7 +818,7 @@
 <body >
 
   <canvas id="snow-canvas" width="390" height="645"></canvas>
-  <canvas id="confetti-canvas" width="390" height="645"></canvas>
+  <canvas id="confetti-canvas" width="390" height="753"></canvas>
 
   <!-- Sticky Header -->
   <header>
@@ -1306,7 +1306,7 @@
               ✏️ Modifica
             </button>
           </div>
-        </div><div class="vault-spot-card locked" id="spot-nov-28" style="left: 66%; top: 2380px;">
+        </div><div class="vault-spot-card unlocked" id="spot-nov-28" style="left: 66%; top: 2380px;">
           <div class="spot-name-tooltip">Sottosuolo 28 Nov: La Cassa del Carbone Magico</div>
 
           <div class="spot-graphic-wrap">
@@ -1329,7 +1329,7 @@
 
           <div class="admin-spot-tools">
             <button class="admin-mini-btn" onclick="quickToggleUnlock('nov-28', event)">
-              🔒
+              🔓
             </button>
             <button class="admin-mini-btn" onclick="openEditModal('nov-28', event)">
               ✏️ Modifica
@@ -1405,18 +1405,16 @@
 
       <div class="modal-badge-pill">
         <span id="s-badge-icon">⚙️</span>
-        <span id="s-badge-date">27 Novembre (Sottosuolo)</span>
+        <span id="s-badge-date">28 Novembre (Sottosuolo)</span>
       </div>
 
-      <h2 class="modal-title" id="s-title">Il Condotto delle Vecchie Lampadine</h2>
+      <h2 class="modal-title" id="s-title">La Cassa del Carbone Magico</h2>
 
       <div class="modal-img-box" id="s-img-box" style="display: block;">
-        <img id="s-img" src="https://static.vecteezy.com/ti/vettori-gratis/p1/17546191-uno-bacio-buono-romantico-biglietto-san-valentino-giorno-design-elemento-vettore-illustrazione-vettoriale.jpg" alt="Sorpresa">
+        <img id="s-img" src="https://content.dambros.it/common/collections/products/78/95/789507f4-1919-46fa-ae38-37f4a25849f0.jpg" alt="Sorpresa">
       </div>
 
-      <div class="modal-message" id="s-message">Non ti è bastato l'indizio per capire che cosa sono?
-Mi dispiace, ma neanche oggi ti sarà dato una mano... goditi però questo premio giornaliero ❤️
-( Riscattabile in qualsiasi momento previo a dimostrazione al soggetto interessato )</div>
+      <div class="modal-message" id="s-message">Una dolce sorpresa per la mia dolce metà</div>
 
       <div id="s-link-box" style="display: none;">
         <a href="https://open.spotify.com/track/5Wj1rJnCLpMHdLaxsFtJLs?si=JQPeCs88Q6edCd7u_ZmSeQ&amp;utm_source=copy-link" target="_blank" rel="noopener noreferrer" class="modal-link-btn" id="s-link-btn">
@@ -1453,10 +1451,10 @@ Mi dispiace, ma neanche oggi ti sarà dato una mano... goditi però questo premi
         <span>✏️ Modifica Casella</span>
       </div>
 
-      <h2 class="modal-title" id="edit-modal-title">Modifica Il Condotto delle Vecchie Lampadine</h2>
+      <h2 class="modal-title" id="edit-modal-title">Modifica La Cassa del Carbone Magico</h2>
 
       <form onsubmit="saveDayEdit(event)">
-        <input type="hidden" id="edit-day-id" value="nov-27">
+        <input type="hidden" id="edit-day-id" value="nov-28">
 
         <div style="display: flex; gap: 0.8rem; align-items: center; margin-bottom: 1.25rem; background: rgba(255,255,255,0.06); padding: 0.8rem 1rem; border-radius: 12px;">
           <span style="font-size: 0.88rem; font-weight: 700; color: var(--gold-primary);">Stato Sblocco:</span>
@@ -2027,10 +2025,10 @@ Mi dispiace, ma neanche oggi ti sarà dato una mano... goditi però questo premi
     "day": 28,
     "month": "Nov",
     "zone": "underground",
-    "unlocked": false,
+    "unlocked": true,
     "title": "La Cassa del Carbone Magico",
-    "message": "Casella segreta del 28 Novembre nella discarica sotterranea!",
-    "img": "",
+    "message": "Una dolce sorpresa per la mia dolce metà (no indizio per poppy poppy)",
+    "img": "https://content.dambros.it/common/collections/products/78/95/789507f4-1919-46fa-ae38-37f4a25849f0.jpg",
     "link": "",
     "linkLabel": ""
   },
@@ -2347,7 +2345,7 @@ Mi dispiace, ma neanche oggi ti sarà dato una mano... goditi però questo premi
     "linkLabel": ""
   }
 ];
-    let EMBEDDED_DATA_TIMESTAMP = 1795732818279;
+    let EMBEDDED_DATA_TIMESTAMP = 1795818170275;
     /* === EMBEDDED_CALENDAR_DATA_END === */
 
     function generateDefault31Days() {
